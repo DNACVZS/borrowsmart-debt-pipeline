@@ -130,42 +130,64 @@ Flask web application demonstrating how financial advisors would interact with t
 - **Insights** – Top 10 highest-burden states with key metrics
 - **Data Transparency** – Information about data sources
 
-### Running the Website Locally
+## Running the Website Locally
 
-1. **Clone the repository:**
+**Prerequisites:** You need Python 3 and VS Code installed.
+
+### Step-by-Step Instructions
+
+**Step 1: Download the repository**
+
+1. Go to: https://github.com/DNACVZS/borrowsmart-debt-pipeline
+2. Click the green **"Code"** button
+3. Click **"Download ZIP"**
+4. Unzip the folder (double-click it)
+
+**Step 2: Open in VS Code**
+
+1. Open VS Code
+2. Click **"File"** → **"Open Folder"**
+3. Select the `borrowsmart-debt-pipeline` folder you just unzipped
+4. Click **"Open"**
+
+**Step 3: Open Terminal in VS Code**
+
+1. Click **"Terminal"** (top menu) → **"New Terminal"**
+2. A terminal window opens at the bottom
+
+**Step 4: Navigate to the website folder**
+
+In the terminal, type:
 ```bash
-   git clone https://github.com/YOUR-USERNAME/borrowsmart-debt-pipeline.git
-   cd borrowsmart-debt-pipeline
+cd website
 ```
 
-2. **Navigate to the website folder:**
+**Step 5: Install dependencies**
 ```bash
-   cd website
+pip install -r requirements.txt
 ```
 
-3. **Install dependencies:**
+**Step 6: Run the app**
 ```bash
-   pip install -r requirements.txt
+python app.py
 ```
 
-4. **Run the Flask app:**
-```bash
-   python app.py
-```
+You should see: `Running on http://127.0.0.1:5000`
 
-5. **Open your browser:**
-  Navigate to `http://localhost:5000`
+**Step 7: Open your browser**
+
+Go to: `http://localhost:5000`
+
 ### Troubleshooting
 
 **Port 5000 is already in use:**
 
-If you get an error that port 5000 is in use, run the app on a different port:
-
+Run this instead:
 ```bash
 python app.py --port 8000
 ```
 
-Then navigate to `http://localhost:8000` instead.
+Then go to `http://localhost:8000`
 
 ### Key Findings (as of Sept. 30, 2025 FSA data)
 
