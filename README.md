@@ -154,6 +154,17 @@ Flask web application demonstrating how financial advisors would interact with t
 
 5. **Open your browser:**
   Navigate to `http://localhost:5000`
+### Troubleshooting
+
+**Port 5000 is already in use:**
+
+If you get an error that port 5000 is in use, run the app on a different port:
+
+```bash
+python app.py --port 8000
+```
+
+Then navigate to `http://localhost:8000` instead.
 
 ### Key Findings (as of Sept. 30, 2025 FSA data)
 
