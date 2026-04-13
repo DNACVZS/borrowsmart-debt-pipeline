@@ -121,6 +121,35 @@ All packages are pre-installed in Google Colab:
 | `borrowsmart_prototype.db` | SQLite database with typed `state_metrics` table for ad-hoc queries |
 | Bar chart (displayed in notebook) | Horizontal bar chart of top 10 burden states |
 
+## Website Prototype
+
+Flask web application demonstrating how financial advisors would interact with the pipeline outputs. The website includes:
+- **Home** – Project overview
+- **Advisor Dashboard** – Interactive state selector with risk filtering  
+- **Insights** – Top 10 highest-burden states with key metrics
+- **Data Transparency** – Information about data sources
+
+### Running the Website Locally
+
+1. **Clone the repository:**
+```bash
+   git clone https://github.com/DNACVZS/borrowsmart-debt-pipeline.git
+   cd borrowsmart-debt-pipeline
+```
+
+2. **Install dependencies:**
+```bash
+   pip install -r requirements.txt
+```
+
+3. **Run the Flask app:**
+```bash
+   python app.py
+```
+
+4. **Open your browser:**
+   Navigate to `http://localhost:5000`
+
 ### Key Findings (as of Sept. 30, 2025 FSA data)
 
 The top 5 highest-burden states are Mississippi (0.66), Alabama (0.59), Louisiana (0.57), Arkansas (0.56), and South Carolina (0.56). These are predominantly Southern states with lower median household incomes relative to student loan balances.
