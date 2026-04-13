@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mb-3">
+    <h1 class="h3 mb-1">Insights</h1>
+    <p class="text-secondary mb-0">Top burden states and outreach prioritization snapshot.</p>
+</div>
+
+<section class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h2 class="h5">Top 10 highest burden states</h2>
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>State</th>
+                        <th>Debt-to-income ratio</th>
+                        <th>Risk label</th>
+                        <th>Origination YoY change</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in top10 %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ row.state_name }}</td>
+                        <td>{{ '{:.1%}'.format(row.debt_to_income_ratio) }}</td>
+                        <td>{{ row.risk_label }}</td>
+                        <td>{{ '{:+.2f}%'.format(row.origination_yoy_change) if row.origination_yoy_change == row.origination_yoy_change else 'N/A' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h2 class="h5">Where to prioritize outreach</h2>
+        <div class="d-flex flex-wrap gap-2">
+            {% for row in top10 %}
+            <span class="badge text-bg-light border p-2">{{ row.state_name }}: {{ row.risk_label }}</span>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="card shadow-sm">
+    <div class="card-body">
+        <h2 class="h5">Debt-to-income ratio by top 10 states</h2>
+        <canvas id="dtiChart" height="120"></canvas>
+    </div>
+</section>
+
+<section class="card shadow-sm mt-4">
+    <div class="card-body">
+        <h2 class="h5">All States in Scope</h2>
+        <p class="text-secondary small">Complete list for the 50 states and Washington, DC with burden ratio, risk tier, and origination YoY change.</p>
+        <div class="table-responsive">
+            <table class="table table-sm table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>State</th>
+                        <th>Debt-to-income ratio</th>
+                        <th>Risk label</th>
+                        <th>Origination YoY change</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in all_states %}
+                    <tr>
+                        <td>{{ row.state_name }}</td>
+                        <td>{{ '{:.1%}'.format(row.debt_to_income_ratio) }}</td>
+                        <td>{{ row.risk_label }}</td>
+                        <td>{{ '{:+.2f}%'.format(row.origination_yoy_change) if row.origination_yoy_change == row.origination_yoy_change else 'N/A' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const labels = {{ top10 | map(attribute='state_name') | list | tojson }};
+const dtiValues = {{ top10 | map(attribute='debt_to_income_ratio') | list | tojson }}.map(v => Number(v) * 100);
+
+new Chart(document.getElementById('dtiChart'), {
+    type: 'bar',
+    data: {
+        labels,
+        datasets: [{
+            label: 'Debt-to-income ratio (%)',
+            data: dtiValues,
+            backgroundColor: '#2e6bd9'
+        }]
+    },
+    options: {
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, title: { display: true, text: '%' } } }
+    }
+});
+</script>
+{% endblock %}

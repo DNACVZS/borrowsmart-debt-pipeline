@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mb-3">
+    <h1 class="h3 mb-1">Transparency</h1>
+    <p class="text-secondary mb-0">Sources, formulas, responsible-use notes, and prototype limitations.</p>
+</div>
+
+<section class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h2 class="h5">Data sources</h2>
+        <ul class="mb-0">
+            <li>FSA: <code>./data/raw/portfolio-by-location.xls</code></li>
+            <li>ACS: <code>./data/raw/ACSDT5Y2024.B19013-Data.csv</code></li>
+            <li>CFPB: <code>./data/raw/map_data_STU.csv</code></li>
+        </ul>
+    </div>
+</section>
+
+<section class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h2 class="h5">Product Context</h2>
+        <ul class="mb-0">
+            <li><strong>Core output:</strong> state-level debt burden indicator (DTI proxy), risk label, and origination trend signal.</li>
+            <li><strong>Who uses this:</strong> nonprofit financial advisors and program managers.</li>
+            <li><strong>Decision supported:</strong> where outreach and counseling resources may need to be concentrated.</li>
+            <li><strong>Geography:</strong> 50 U.S. states plus Washington, DC. Territories are excluded from this prototype.</li>
+            <li><strong>Data level:</strong> state-level aggregates only, no individual records.</li>
+            <li><strong>Platform scope:</strong> prototype site with local file processing, no external APIs, and no authentication.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h2 class="h5">How to Use This Tool</h2>
+        <ul class="mb-0">
+            <li>Use the dashboard to compare states, spot higher-burden regions, and prioritize advisor follow-up.</li>
+            <li>Treat risk labels as planning signals for outreach, not as borrower-level judgments.</li>
+            <li>Use this tool alongside local program knowledge, staffing constraints, and borrower context.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h2 class="h5">Metric definitions</h2>
+        <ul>
+            <li><code>average_debt_per_borrower = total_outstanding_balance / borrower_count</code></li>
+            <li><code>median_household_income = ACS B19013_001E</code></li>
+            <li><code>debt_to_income_ratio = average_debt_per_borrower / median_household_income</code></li>
+            <li><code>origination_yoy_change = CFPB value</code></li>
+        </ul>
+    </div>
+</section>
+
+<section class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h2 class="h5">Risk label thresholds</h2>
+        <ul class="mb-0">
+            <li>Low: debt_to_income_ratio &lt; 0.45</li>
+            <li>Medium: 0.45 ≤ debt_to_income_ratio &lt; 0.60</li>
+            <li>High: debt_to_income_ratio ≥ 0.60</li>
+        </ul>
+    </div>
+</section>
+
+<section class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h2 class="h5">Latest period notes</h2>
+        <ul class="mb-0">
+            <li>FSA period: {{ meta.fsa_period }}</li>
+            <li>ACS period: {{ meta.acs_period }}</li>
+        </ul>
+    </div>
+</section>
+
+<section class="card shadow-sm">
+    <div class="card-body">
+        <h2 class="h5">Limitations</h2>
+        <ul class="mb-0">
+            <li>Aggregated state-level values only; no individual borrower-level context.</li>
+            <li>State averages may hide within-state differences.</li>
+            <li>This prototype supports program decisions and is not individualized financial advice.</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

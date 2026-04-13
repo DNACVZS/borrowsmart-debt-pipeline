@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel hero-panel">
+    <p class="prototype-chip">Visual Prototype Only</p>
+    <h2>Why BorrowSmart?</h2>
+    <p>
+        Student loan advisors often rely on national averages, but repayment pressure varies widely by state.
+        BorrowSmart demonstrates how state-level debt burden indicators can inform outreach and guidance decisions.
+    </p>
+    <div class="quick-links">
+        <a href="{{ url_for('how_it_works') }}" class="button-link">See Method</a>
+        <a href="{{ url_for('demo') }}" class="button-link">Try Demo</a>
+    </div>
+</section>
+
+<section class="panel">
+    <h2>The Core Idea</h2>
+    <div class="card-grid">
+        <article class="card">
+            <h3>Problem</h3>
+            <p>National averages hide local affordability differences for borrowers.</p>
+        </article>
+        <article class="card">
+            <h3>Signal</h3>
+            <p>Debt-to-income by state creates a clear burden indicator for planning.</p>
+        </article>
+        <article class="card">
+            <h3>Action</h3>
+            <p>Advisors can prioritize support intensity where burden and trends are highest.</p>
+        </article>
+    </div>
+</section>
+{% include "sources_note.html" %}
+{% endblock %}

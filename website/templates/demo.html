@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel">
+    <h2>Interactive State Demo</h2>
+    <p>Select a state to see mock debt burden indicators.</p>
+
+    <form method="get" action="{{ url_for('demo') }}" class="control-row">
+        <div>
+            <label for="state-select"><strong>State</strong></label>
+            <select id="state-select" name="state" class="state-select">
+                {% for state in states %}
+                <option value="{{ state.state }}" {% if state.state == selected_state.state %}selected{% endif %}>
+                    {{ state.state }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="button-link">Load State</button>
+    </form>
+
+    <div class="card-grid demo-metrics">
+        <article class="card">
+            <h3>Average Debt</h3>
+            <p class="metric" id="avg-debt">${{ "{:,}".format(selected_state.average_debt) }}</p>
+        </article>
+        <article class="card">
+            <h3>Median Income</h3>
+            <p class="metric" id="median-income">${{ "{:,}".format(selected_state.median_income) }}</p>
+        </article>
+        <article class="card">
+            <h3>Debt-to-Income Ratio</h3>
+            <p class="metric" id="dti-ratio">{{ selected_state.dti_ratio }}%</p>
+        </article>
+        <article class="card">
+            <h3>Risk Level</h3>
+            <p class="metric" id="risk-level">{{ selected_state.risk_level }}</p>
+        </article>
+        <article class="card">
+            <h3>Priority Score</h3>
+            <p class="metric" id="priority-score">{{ selected_state.priority_score }}</p>
+        </article>
+    </div>
+
+    <canvas id="stateChart" height="120"></canvas>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const stateData = {{ states | tojson }};
+const selectElement = document.getElementById("state-select");
+
+const avgDebtNode = document.getElementById("avg-debt");
+const medianIncomeNode = document.getElementById("median-income");
+const dtiNode = document.getElementById("dti-ratio");
+const riskNode = document.getElementById("risk-level");
+const priorityNode = document.getElementById("priority-score");
+
+function findState(stateName) {
+    return stateData.find((item) => item.state === stateName);
+}
+
+const initial = findState(selectElement.value);
+const chart = new Chart(document.getElementById("stateChart"), {
+    type: "bar",
+    data: {
+        labels: ["Average Debt", "Median Income"],
+        datasets: [{
+            data: [initial.average_debt, initial.median_income],
+            backgroundColor: ["#2d8fff", "#19bf8f"]
+        }]
+    },
+    options: {
+        plugins: { legend: { display: false } },
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
+
+function formatCurrency(value) {
+    return "$" + Number(value).toLocaleString();
+}
+
+function updateView(stateName) {
+    const item = findState(stateName);
+    if (!item) return;
+
+    avgDebtNode.textContent = formatCurrency(item.average_debt);
+    medianIncomeNode.textContent = formatCurrency(item.median_income);
+    dtiNode.textContent = item.dti_ratio + "%";
+    riskNode.textContent = item.risk_level;
+    priorityNode.textContent = item.priority_score;
+
+    chart.data.datasets[0].data = [item.average_debt, item.median_income];
+    chart.update();
+}
+
+selectElement.addEventListener("change", (event) => {
+    updateView(event.target.value);
+});
+</script>
+{% endblock %}

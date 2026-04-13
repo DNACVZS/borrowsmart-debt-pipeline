@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel">
+    <h2>Advisor Consultation Snapshot</h2>
+    <p>Use this mock view to preview recommended support intensity by state.</p>
+
+    <form method="get" action="{{ url_for('advisor_view') }}" class="control-row">
+        <div>
+            <label for="state"><strong>Select State</strong></label>
+            <select name="state" id="state" class="state-select">
+                {% for item in states %}
+                <option value="{{ item.state }}" {% if item.state == snapshot.state %}selected{% endif %}>{{ item.state }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="button-link">Load Snapshot</button>
+    </form>
+</section>
+
+<section class="panel">
+    <div class="card-grid">
+        <article class="card">
+            <h3>State</h3>
+            <p class="metric">{{ snapshot.state }}</p>
+        </article>
+        <article class="card">
+            <h3>Debt Burden Level</h3>
+            <p class="metric">{{ snapshot.risk_level }} ({{ snapshot.dti_ratio }}%)</p>
+        </article>
+        <article class="card">
+            <h3>Suggested Support Intensity</h3>
+            <p class="metric">{{ snapshot.support_intensity }}</p>
+        </article>
+        <article class="card">
+            <h3>Borrowing Trend</h3>
+            <p class="metric">{{ snapshot.borrowing_trend_pct }}%</p>
+        </article>
+        <article class="card">
+            <h3>Priority Score</h3>
+            <p class="metric">{{ snapshot.priority_score }}</p>
+        </article>
+    </div>
+</section>
+{% endblock %}

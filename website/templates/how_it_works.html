@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel">
+    <h2>How It Works</h2>
+    <p>This demo shows a simplified three-step process for decision support.</p>
+    <div class="process-grid">
+        <article class="card process-step">
+            <h3>1. Upload Federal Loan Data</h3>
+            <p>Bring in public federal loan summary files by geography.</p>
+        </article>
+        <article class="card process-step">
+            <h3>2. Combine With Income Data</h3>
+            <p>Join with state-level median income to add local context.</p>
+        </article>
+        <article class="card process-step">
+            <h3>3. Generate DTI Burden</h3>
+            <p>Calculate debt-to-income ratio and assign a simple risk level.</p>
+        </article>
+    </div>
+</section>
+
+<section class="panel">
+    <h2>Prototype Notes</h2>
+    <p>
+        This is a visual concept for partner conversations. Data is mock and stored locally in CSV.
+        No login, no personal borrower data, and no production analytics pipeline.
+    </p>
+</section>
+{% include "sources_note.html" %}
+{% endblock %}

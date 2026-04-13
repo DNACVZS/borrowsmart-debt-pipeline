@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-3">
+    <div>
+        <h1 class="h3 mb-1">Advisor Workspace</h1>
+        <p class="text-secondary mb-0">Prototype workspace for state-level burden triage, outreach planning, and program monitoring.</p>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <p class="text-secondary small mb-1">High risk states</p>
+                <p class="h3 mb-0">{{ high_risk_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <p class="text-secondary small mb-1">Medium risk states</p>
+                <p class="h3 mb-0">{{ medium_risk_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <p class="text-secondary small mb-1">Low risk states</p>
+                <p class="h3 mb-0">{{ low_risk_count }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="get" action="{{ url_for('dashboard') }}" class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h2 class="h4 mb-1">State Snapshot</h2>
+        <p class="text-secondary small mb-3">This control updates only the KPI cards for one selected state.</p>
+        <div class="d-flex flex-wrap gap-2 align-items-end">
+            <select class="form-select state-picker" id="state_fips" name="state_fips">
+                {% for st in states %}
+                <option value="{{ st.state_fips }}" {% if st.state_fips == selected.state_fips %}selected{% endif %}>{{ st.state_name }}</option>
+                {% endfor %}
+            </select>
+            <input type="hidden" name="risk" value="{{ risk_filter }}">
+            <button type="submit" class="btn btn-primary">Load State</button>
+        </div>
+    </div>
+</form>
+
+<section class="mb-4">
+    <h2 class="h5 text-uppercase small fw-semibold text-secondary mb-3">Debt</h2>
+    <div class="row g-3">
+        <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm"><div class="card-body"><p class="text-secondary small mb-1">Total outstanding federal loan balance</p><p class="h5 mb-0">${{ '{:,.0f}'.format(selected.total_outstanding_balance) }}</p></div></div></div>
+        <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm"><div class="card-body"><p class="text-secondary small mb-1">Number of borrowers</p><p class="h5 mb-0">{{ '{:,.0f}'.format(selected.borrower_count) }}</p></div></div></div>
+        <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm"><div class="card-body"><p class="text-secondary small mb-1">Average debt per borrower</p><p class="h5 mb-0">${{ '{:,.0f}'.format(selected.average_debt_per_borrower) }}</p></div></div></div>
+    </div>
+</section>
+
+<section class="mb-4">
+    <h2 class="h5 text-uppercase small fw-semibold text-secondary mb-3">Income</h2>
+    <div class="row g-3">
+        <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm"><div class="card-body"><p class="text-secondary small mb-1">Median household income</p><p class="h5 mb-0">${{ '{:,.0f}'.format(selected.median_household_income) }}</p></div></div></div>
+        <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm"><div class="card-body"><p class="text-secondary small mb-1">Debt-to-income ratio</p><p class="h5 mb-0">{{ '{:.1%}'.format(selected.debt_to_income_ratio) }}</p></div></div></div>
+    </div>
+</section>
+
+<section class="mb-4">
+    <h2 class="h5 text-uppercase small fw-semibold text-secondary mb-3">Trend</h2>
+    <div class="row g-3">
+        <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm"><div class="card-body"><p class="text-secondary small mb-1">CFPB origination YoY change</p><p class="h5 mb-0">{{ '{:+.2f}%'.format(selected.origination_yoy_change) }}</p></div></div></div>
+    </div>
+</section>
+
+<div class="card shadow-sm mt-4">
+    <div class="card-body d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <div>
+            <p class="small text-secondary mb-1">Risk label</p>
+            <p class="h4 mb-0">{{ selected.risk_label }}</p>
+        </div>
+        <div class="small text-secondary">Thresholds: Low &lt; 45%, Medium 45-59.9%, High ≥ 60%</div>
+    </div>
+</div>
+
+<section class="card shadow-sm mt-4">
+    <div class="card-body">
+        <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
+            <div>
+                <p class="small text-secondary mb-1">Recommended next step for {{ selected.state_name }}</p>
+                <p class="h4 mb-2">{{ selected_action }}</p>
+                <p class="mb-0 text-secondary">{{ selected_reason }}</p>
+            </div>
+            <div class="small text-secondary">This recommendation is based on the state's burden tier and origination trend, not on individual borrower records.</div>
+        </div>
+    </div>
+</section>
+
+<section class="card shadow-sm mt-4">
+    <div class="card-body">
+        <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-2">
+            <h2 class="h5 mb-0">Outreach Priority Queue</h2>
+            <span class="small text-secondary">Top 15 by risk tier and burden</span>
+        </div>
+        <form method="get" action="{{ url_for('dashboard') }}" class="mb-3 d-flex flex-wrap gap-2 align-items-end">
+            <input type="hidden" name="state_fips" value="{{ selected.state_fips }}">
+            <div>
+                <label for="risk" class="form-label small fw-semibold mb-1">Queue Risk Filter</label>
+                <select class="form-select" id="risk" name="risk">
+                    <option value="All" {% if risk_filter == 'All' %}selected{% endif %}>All Risk Tiers</option>
+                    <option value="High" {% if risk_filter == 'High' %}selected{% endif %}>High Risk Only</option>
+                    <option value="Medium" {% if risk_filter == 'Medium' %}selected{% endif %}>Medium Risk Only</option>
+                    <option value="Low" {% if risk_filter == 'Low' %}selected{% endif %}>Low Risk Only</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-outline-primary">Apply Queue Filter</button>
+            <span class="small text-secondary">This control updates only the queue table below.</span>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm align-middle">
+                <thead>
+                    <tr>
+                        <th>State</th>
+                        <th>Risk</th>
+                        <th>DTI</th>
+                        <th>Origination YoY</th>
+                        <th>Recommended next action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in advisor_queue %}
+                    <tr>
+                        <td>{{ row.state_name }}</td>
+                        <td>{{ row.risk_label }}</td>
+                        <td>{{ '{:.1%}'.format(row.debt_to_income_ratio) }}</td>
+                        <td>{{ '{:+.2f}%'.format(row.origination_yoy_change) if row.origination_yoy_change == row.origination_yoy_change else 'N/A' }}</td>
+                        <td>{{ row.recommended_action }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

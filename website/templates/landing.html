@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="p-4 p-md-5 rounded-4 bs-hero mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+            <p class="text-uppercase small fw-semibold mb-2">Advisor-first prototype</p>
+            <h1 class="display-6 fw-bold mb-3">State-level student loan burden planning for nonprofit outreach</h1>
+            <p class="lead mb-4">
+                BorrowSmart helps financial advisors and program managers compare student loan pressure across states.
+                This demo combines a debt burden proxy with CFPB origination trend signals to prioritize outreach.
+            </p>
+            <a class="btn btn-lg btn-primary" href="{{ url_for('dashboard') }}">Open Demo Dashboard</a>
+        </div>
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="h5">What this demo does</h2>
+                    <ul class="mb-0">
+                        <li>Compares debt-to-income burden across states</li>
+                        <li>Flags Low/Medium/High risk tiers</li>
+                        <li>Adds CFPB originations YoY trend context</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="row g-3">
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h2 class="h5">Public data only</h2>
+                <p class="mb-0">No authentication, no PII, and no borrower-level records.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h2 class="h5">Advisor workflow</h2>
+                <p class="mb-0">Select a state, review burden KPIs, and identify outreach priority.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h2 class="h5">Transparent assumptions</h2>
+                <p class="mb-0">Methodology, formulas, and limitations are documented in Transparency.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

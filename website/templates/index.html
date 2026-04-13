@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="landing-wrap">
+    <div class="bs-hero landing-hero rounded-4 p-4 p-md-5">
+        <p class="landing-eyebrow mb-3">Prototype Advisor Platform</p>
+        {% if logo_filename %}
+        <img src="{{ url_for('static', filename=logo_filename) }}" alt="BorrowSmart logo" class="landing-logo mb-3">
+        {% endif %}
+        <h1 class="display-6 fw-bold mb-3">Help Advisors See Where Student Loan Burden May Be Highest</h1>
+        <p class="lead mb-4">
+            BorrowSmart is a prototype decision-support tool for nonprofit financial advisors working with borrowers across the United States.
+        </p>
+        <p class="text-secondary mb-4">
+            It combines federal loan balances, borrower counts, household income, and origination trends to help teams prioritize outreach, plan counseling capacity, and identify states that may need more support.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-lg px-4 py-2">Open Advisor Dashboard</a>
+            <a href="{{ url_for('transparency') }}" class="btn btn-outline-primary btn-lg px-4 py-2">See Methodology</a>
+        </div>
+        <div class="landing-signal-grid mt-4">
+            <div class="landing-signal-card">
+                <span class="signal-title">Coverage</span>
+                <span class="signal-value">50 States + DC</span>
+            </div>
+            <div class="landing-signal-card">
+                <span class="signal-title">Data Stack</span>
+                <span class="signal-value">FSA + ACS + CFPB</span>
+            </div>
+            <div class="landing-signal-card">
+                <span class="signal-title">Decision Supported</span>
+                <span class="signal-value">Outreach Prioritization</span>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
