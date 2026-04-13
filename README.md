@@ -5,6 +5,14 @@
 Baisden, Cavazos, Ribero, Sparks
 
 ---
+## My Contributions
+
+- **Project conception & topic selection** – Proposed the BorrowSmart analysis based on prior experience with federal student loan datasets
+- **Data sourcing** – Researched and identified 2 of the 3 primary datasets (FSA Direct Loan Portfolio and Census Bureau ACS)
+- **Core pipeline development** – Built the foundational notebook (v1) establishing the overall data integration framework and state-level aggregation logic
+- **Real-world application design** – Developed an interactive website prototype demonstrating how financial advisors and project managers would use the debt burden data in practice, including an insights page displaying top 10 highest-burden states with key metrics and risk labels in an accessible format
+
+---
 
 ## Project Description
 
