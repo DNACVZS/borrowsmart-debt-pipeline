@@ -5,6 +5,13 @@
 Baisden, Cavazos, Ribero, Sparks
 
 ---
+
+## Project Description
+
+This project builds a prototype data pipeline for **BorrowSmart**, a fictional national nonprofit that helps borrowers manage federal student loan debt. The pipeline integrates three publicly available government datasets to generate a **state-level debt burden indicator** -- a ratio comparing average student loan debt per borrower to median household income by state.
+
+The resulting dataset helps BorrowSmart advisors identify regions where borrowers may face greater repayment strain, enabling more targeted outreach and better-informed advisory consultations.
+
 ## My Contributions
 
 - **Project conception & topic selection** – Proposed the BorrowSmart analysis based on prior experience with federal student loan datasets
@@ -13,12 +20,6 @@ Baisden, Cavazos, Ribero, Sparks
 - **Real-world application design** – Developed an interactive website prototype demonstrating how financial advisors and project managers would use the debt burden data in practice, including an insights page displaying top 10 highest-burden states with key metrics and risk labels in an accessible format
 
 ---
-
-## Project Description
-
-This project builds a prototype data pipeline for **BorrowSmart**, a fictional national nonprofit that helps borrowers manage federal student loan debt. The pipeline integrates three publicly available government datasets to generate a **state-level debt burden indicator** -- a ratio comparing average student loan debt per borrower to median household income by state.
-
-The resulting dataset helps BorrowSmart advisors identify regions where borrowers may face greater repayment strain, enabling more targeted outreach and better-informed advisory consultations.
 
 ## Data Sources
 
