@@ -1,0 +1,6 @@
+# BorrowSmart Debt Burden Pipeline - Python dependencies
+# All are pre-installed in Google Colab; listed here for local reproducibility.
+pandas>=1.5
+numpy>=1.23
+matplotlib>=3.6
+xlrd>=2.0
