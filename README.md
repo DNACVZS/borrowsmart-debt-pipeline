@@ -133,21 +133,26 @@ Flask web application demonstrating how financial advisors would interact with t
 
 1. **Clone the repository:**
 ```bash
-   git clone https://github.com/DNACVZS/borrowsmart-debt-pipeline.git
+   git clone https://github.com/YOUR-USERNAME/borrowsmart-debt-pipeline.git
    cd borrowsmart-debt-pipeline
 ```
 
-2. **Install dependencies:**
+2. **Navigate to the website folder:**
+```bash
+   cd website
+```
+
+3. **Install dependencies:**
 ```bash
    pip install -r requirements.txt
 ```
 
-3. **Run the Flask app:**
+4. **Run the Flask app:**
 ```bash
    python app.py
 ```
 
-4. **Open your browser:**
+5. **Open your browser:**
    Navigate to `http://localhost:5000`
 
 ### Key Findings (as of Sept. 30, 2025 FSA data)
