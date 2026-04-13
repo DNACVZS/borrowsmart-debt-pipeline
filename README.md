@@ -153,7 +153,7 @@ Flask web application demonstrating how financial advisors would interact with t
 ```
 
 5. **Open your browser:**
-   Navigate to `http://localhost:5000`
+  Navigate to `http://localhost:5000`
 
 ### Key Findings (as of Sept. 30, 2025 FSA data)
 
