@@ -8,10 +8,12 @@ from flask import Flask, abort, render_template, request
 
 app = Flask(__name__)
 
-FSA_PATH = Path("../data/portfolio-by-location.xls")
-ACS_PATH = Path("../data/ACSDT5Y2024.B19013-Data.csv")
-CFPB_PATH = Path("../data/map_data_STU.csv")
-PROCESSED_PATH = Path("../data/state_dashboard.csv")
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FSA_PATH = Path(BASE_DIR) / "data" / "portfolio-by-location.xls"
+ACS_PATH = Path(BASE_DIR) / "data" / "ACSDT5Y2024.B19013-Data.csv"
+CFPB_PATH = Path(BASE_DIR) / "data" / "map_data_STU.csv"
+PROCESSED_PATH = Path(BASE_DIR) / "data" / "state_dashboard.csv"
 LOGO_CANDIDATES = ["logo.png", "logo.svg", "logo.jpg", "logo.jpeg", "logo.webp"]
 
 # 50 states + DC for this application (territories excluded)
