@@ -501,11 +501,20 @@ def build_dataset() -> tuple[pd.DataFrame, dict]:
     return merged, meta
 
 
-DATA_DF, META = build_dataset()
-DATA_RECORDS = DATA_DF.to_dict("records")
-DATA_LOOKUP = {row["state_fips"]: row for row in DATA_RECORDS}
-TOP10 = sorted(DATA_RECORDS, key=lambda r: r["debt_to_income_ratio"], reverse=True)[:10]
-
+try:
+    DATA_DF, META = build_dataset()
+    DATA_RECORDS = DATA_DF.to_dict("records")
+    DATA_LOOKUP = {row["state_fips"]: row for row in DATA_RECORDS}
+    TOP10 = sorted(DATA_RECORDS, key=lambda r: r["debt_to_income_ratio"], reverse=True)[:10]
+    print("[SUCCESS] Data loaded successfully!")
+except Exception as e:
+    print(f"[ERROR] Failed to load data: {e}")
+    import traceback
+    traceback.print_exc()
+    DATA_DF = None
+    DATA_RECORDS = []
+    DATA_LOOKUP = {}
+    TOP10 = []
 
 @app.context_processor
 def shared_template_context():
